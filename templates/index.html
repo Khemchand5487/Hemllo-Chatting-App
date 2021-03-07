@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <title>HEMLLO | chatting </title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form action="#" class="sign-in-form">
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Username" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" />
+            </div>
+
+            <p class="social-text"><a href="#">Forgot password?</a></p>
+            <input type="submit" value="Login" class="btn solid" />
+            
+            <p class="social-text">Turn off assistance</p>
+            <div class="social-media">
+              
+              <a href="#" class="social-icon">
+                <i class="fas fa-microphone"></i>
+              </a>
+              
+            </div>
+          </form>
+          <form action="#" class="sign-up-form">
+            
+            <h2 class="title">Sign up</h2>
+            <div class="flt-3">
+
+                  <div class="sec1">
+                    
+                    <div class="input-field2">
+                      <i class="fas fa-user"></i>
+                      <input type="text" placeholder="Username" />
+                    </div>
+                    <div class="input-field2">
+                      <i class="fas fa-envelope"></i>
+                      <input type="text" placeholder="Email" />
+                    </div>
+                    <div class="input-field2">
+                      <i class="fas fa-birthday-cake"></i>
+                      <input type="date" placeholder=" " />
+                    </div>
+                    
+                    <div class="input-field2">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" placeholder="Password" />
+                    </div>
+                    
+                  </div>
+  
+                  <div class="sec2">
+                    
+                    <div class="input-field2">
+                      <i class="fas fa-user"></i>
+                      <input type="text" placeholder="Fullname" />
+                    </div>
+                    <div class="input-field2">
+                      <i class="fas fa-mobile-alt"></i>
+                      <input type="text" placeholder="Phone No." />
+                    </div>
+                    <div class="gender">
+                      <select class="input-field2" name="gender">
+                        <option value="">--Select Gender--</option> 
+                        <option value=" Male">Male</option> 
+                           <option value="Female">Female</option> 
+                                <option value="Female">Other</option> 
+                      </select> 
+                    </div>
+                    
+                    
+                    <div class="input-field2">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" placeholder="Re-enter Password" />
+                    </div>
+                    
+                  </div>
+
+
+            </div>
+            <input type="submit" class="btn" value="Sign up" />
+        
+            <p class="social-text">Turn off assistance</p>
+            <div class="social-media">
+        
+              <a href="#" class="social-icon">
+                <i class="fas fa-microphone"></i>
+              </a>
+              
+            </div>
+                       
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>Join our family.</h3>
+            <p>
+              Connect with your love ones <span style="font-size: x-large;">&#9825</span>
+            </p>
+            <button class="btn transparent" id="sign-up-btn">
+              Sign up
+            </button>
+          </div>
+          <img src="{% static 'img/log.svg' %}" class="image" alt="" />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>All set!!!</h3>
+            <p>
+              Lets have some chatting<span style="font-size: x-large;">&#9786</span>
+            </p>
+            <button class="btn transparent" id="sign-in-btn">
+              Sign in
+            </button>
+          </div>
+          <img src="{% static 'img/register.svg' %}" class="image" alt="register img" />
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'app.js' %}"></script>
+  </body>
+</html>
