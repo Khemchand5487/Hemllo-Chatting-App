@@ -125,6 +125,10 @@ form.sign-in-form {
   font-size: 1.1rem;
 }
 
+input[type="date"] {
+  width: 200px;
+}
+
 .input-field2 input {
   background: none;
   outline: none;
@@ -423,6 +427,7 @@ form.sign-in-form {
     font-size: 0.7rem;
   }
 
+
   .input-field2 {
     max-width: 380px;
     max-height: 40px;
@@ -547,4 +552,11 @@ form.sign-in-form {
   
   }
  
+}
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 5000s;
 }
