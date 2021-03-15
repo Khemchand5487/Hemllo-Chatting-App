@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import auth
+from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 import json
 
-
+@csrf_protect
 def index(request):
     return render(request, 'index.html')
 
-
+@csrf_protect
 def register(request):
     #getting post requests
     if request.method == "POST" and request.is_ajax():
@@ -54,6 +55,7 @@ def register(request):
 
     return redirect('/')
 
+@csrf_protect
 def login(request):
     if request.method == "POST":
         username = request.POST['username_in']
