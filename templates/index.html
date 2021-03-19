@@ -50,75 +50,75 @@
           <form action="register" method="POST" class="sign-up-form" id="signup-form">
             {% csrf_token %}
             <h2 class="title">Sign up</h2>
-            <div class="flt-3">
+            
 
-                  
-                    
-                   
-                    <div class="sec1">
-                      <div class="input-field2">
-                        <i class="fas fa-user"></i>
-                        <input type="text" name="username" id="username" placeholder="Username" />
-                      </div>
-                     </div>
-  
-                     <div class="sec2">
-                      <div class="input-field2">
-                        <i class="fas fa-user"></i>
-                        <input type="text" name="fullname" id="fullname" placeholder="Fullname" />
-                      </div>
-                     </div>
-                   
+          <div id="flt">
 
-                   <div class="sec1">
-                    <div class="input-field2">
-                      <i class="fas fa-envelope"></i>
-                      <input type="text" name="email" id="email" placeholder="Email" />
-                    </div>
-                   </div>
+            <div class="sec1">
+              <div class="input-field2">
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" id="username" placeholder="Username" />
+              </div>
+             </div>
 
-                    <div class="sec2">
-                      <div class="input-field2">
-                        <i class="fas fa-mobile-alt"></i>
-                        <input type="text" name="phone_no" id="phone_no" placeholder="Phone No." />
-                      </div>
-                    </div>
+             <div class="sec2">
+              <div class="input-field2">
+                <i class="fas fa-user"></i>
+                <input type="text" name="fullname" id="fullname" placeholder="Fullname" />
+              </div>
+             </div>
+           
 
-                   <div class="sec1">
-                    <div class="input-field2">
-                      <i class="fas fa-birthday-cake"></i>
-                      <input type="date" name="date_of_birth" id="date_of_birth" placeholder=" " />
-                    </div>
-                   </div>
-
-                    <div class="sec2">
-                      <div class="gender">
-                        <select class="input-field2" id="gender" name="gender">
-                          <option value="">--Select Gender--</option> 
-                          <option value=" Male">Male</option> 
-                             <option value="Female">Female</option> 
-                                  <option value="Female">Other</option> 
-                        </select> 
-                      </div>
-                    </div>
-                    
-                   <div class="sec1">
-                    <div class="input-field2">
-                      <i class="fas fa-lock"></i>
-                      <input type="password" name="password1" id="password1" placeholder="Password" />
-                    </div>
-                   </div>
-
-                   <div class="sec2">
-                    <div class="input-field2">
-                      <i class="fas fa-lock"></i>
-                      <input type="password" name="password2" id="password2" placeholder="Confirm Password" />
-                    </div>
-                   </div>
-                    
-                  
-                    
+           <div class="sec1">
+            <div class="input-field2">
+              <i class="fas fa-envelope"></i>
+              <input type="text" name="email" id="email" placeholder="Email" />
             </div>
+           </div>
+
+            <div class="sec2">
+              <div class="input-field2">
+                <i class="fas fa-mobile-alt"></i>
+                <input type="text" name="phone_no" id="phone_no" placeholder="Phone No." />
+              </div>
+            </div>
+
+           <div class="sec1">
+            <div class="input-field2">
+              <i class="fas fa-birthday-cake"></i>
+              <input type="date" name="date_of_birth" id="date_of_birth" placeholder=" " />
+            </div>
+           </div>
+
+            <div class="sec2">
+              <div class="gender">
+                <select class="input-field2" id="gender" name="gender">
+                  <option value="">--Select Gender--</option> 
+                  <option value=" Male">Male</option> 
+                     <option value="Female">Female</option> 
+                          <option value="Female">Other</option> 
+                </select> 
+              </div>
+            </div>
+            
+           <div class="sec1">
+            <div class="input-field2">
+              <i class="fas fa-lock"></i>
+              <input type="password" name="password1" id="password1" placeholder="Password" />
+            </div>
+           </div>
+
+           <div class="sec2">
+            <div class="input-field2">
+              <i class="fas fa-lock"></i>
+              <input type="password" name="password2" id="password2" placeholder="Confirm Password" />
+            </div>
+           </div>
+            
+
+          </div>        
+                    
+            
             
             <input type="submit" name="signup_btn" id="signup_btn" class="btn" value="Sign up" />
                
