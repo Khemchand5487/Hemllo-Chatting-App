@@ -9,6 +9,7 @@
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'otp.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}" />
     <title>HEMLLO | chatting </title>
   </head>
@@ -21,11 +22,11 @@
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="username_in" id="username_in" placeholder="Username" />
+              <input type="text" name="username_in" id="username_in" placeholder="Username" required/>
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" name="password_in" id="password_in" placeholder="Password" />
+              <input type="password" name="password_in" id="password_in" placeholder="Password" required/>
             </div>
             {% for message in messages%}
               <script>
@@ -50,60 +51,74 @@
           <form action="register" method="POST" class="sign-up-form" id="signup-form">
             {% csrf_token %}
             <h2 class="title">Sign up</h2>
-            <div class="flt-3">
+            
 
-                  <div class="sec1">
-                    
-                    <div class="input-field2">
-                      <i class="fas fa-user"></i>
-                      <input type="text" name="username" id="username" placeholder="Username" />
-                    </div>
-                    <div class="input-field2">
-                      <i class="fas fa-envelope"></i>
-                      <input type="text" name="email" id="email" placeholder="Email" />
-                    </div>
-                    <div class="input-field2">
-                      <i class="fas fa-birthday-cake"></i>
-                      <input type="date" name="date_of_birth" id="date_of_birth" placeholder=" " />
-                    </div>
-                    
-                    <div class="input-field2">
-                      <i class="fas fa-lock"></i>
-                      <input type="password" name="password1" id="password1" placeholder="Password" />
-                    </div>
-                    
-                  </div>
-  
-                  <div class="sec2">
-                    
-                    <div class="input-field2">
-                      <i class="fas fa-user"></i>
-                      <input type="text" name="fullname" id="fullname" placeholder="Fullname" />
-                    </div>
-                    <div class="input-field2">
-                      <i class="fas fa-mobile-alt"></i>
-                      <input type="text" name="phone_no" id="phone_no" placeholder="Phone No." />
-                    </div>
-                    <div class="gender">
-                      <select class="input-field2" id="gender" name="gender">
-                        <option value="">--Select Gender--</option> 
-                        <option value=" Male">Male</option> 
-                           <option value="Female">Female</option> 
-                                <option value="Female">Other</option> 
-                      </select> 
-                    </div>
-                    
-                    <div class="input-field2">
-                      <i class="fas fa-lock"></i>
-                      <input type="password" name="password2" id="password2" placeholder="Confirm Password" />
-                    </div>
-                    
-                  </div>
+          <div id="flt">
 
+            <div class="sec1">
+              <div class="input-field2">
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" id="username" placeholder="Username" required/>
+              </div>
+             </div>
 
+             <div class="sec2">
+              <div class="input-field2">
+                <i class="fas fa-user"></i>
+                <input type="text" name="fullname" id="fullname" placeholder="Fullname" required/>
+              </div>
+             </div>
+           
+
+           <div class="sec1">
+            <div class="input-field2">
+              <i class="fas fa-envelope"></i>
+              <input type="text" name="email" id="email" placeholder="Email" required/>
             </div>
+           </div>
+
+            <div class="sec2">
+              <div class="input-field2">
+                <i class="fas fa-mobile-alt"></i>
+                <input type="text" name="phone_no" id="phone_no" placeholder="Phone No." required/>
+              </div>
+            </div>
+
+           <div class="sec1">
+            <div class="input-field2">
+              <i class="fas fa-birthday-cake"></i>
+              <input type="date" name="date_of_birth" id="date_of_birth" placeholder=" " required/>
+            </div>
+           </div>
+
+            <div class="sec2">
+              <div class="gender">
+                <select class="input-field2" id="gender" name="gender" required>
+                  <option value="#">--Select Gender--</option> 
+                  <option value="Male">Male</option> 
+                     <option value="Female">Female</option> 
+                          <option value="Female">Other</option> 
+                </select> 
+              </div>
+            </div>
+            
+           <div class="sec1">
+            <div class="input-field2">
+              <i class="fas fa-lock"></i>
+              <input type="password" name="password1" id="password1" placeholder="Password" required/>
+            </div>
+           </div>
+
+           <div class="sec2">
+            <div class="input-field2">
+              <i class="fas fa-lock"></i>
+              <input type="password" name="password2" id="password2" placeholder="Confirm Password" required/>
+            </div>
+           </div>
+          </div>        
+
             <input type="submit" name="signup_btn" id="signup_btn" class="btn" value="Sign up" />
-        
+               
             <p class="social-text">Turn off assistance</p>
             <div class="social-media">
         
@@ -143,7 +158,44 @@
           <img src="{% static 'img/register.svg' %}" class="image" alt="register img" />
         </div>
       </div>
+   </div>
+    <div style="z-index:100" id="id01" class="modal">
+    
+      <form id="otp-form" class="modal-content animate" action="register2" method="POST">
+        {% csrf_token %}
+        <p style="padding: 10px; text-align: center;">
+            An OTP has been send to your entered Email address, kindly verify your account.
+        </p>
+        
+        <div class="container-otp">
+          <label for="OTP"><b>OTP</b></label>
+          
+            <input id="otp_1" name="otp_1" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+            <input id="otp_2" name="otp_2" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+            <input id="otp_3" name="otp_3" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+            <input id="otp_4" name="otp_4" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+
+          <br>
+          <h6><a href="#" onclick="document.getElementById('id01').style.display='none';">Re-send OTP</a></h6>
+          <button id="otp-button" type="submit">Submit</button>
+          <label>
+        </div>
+      </form>
+  </div>
     </div>
+    
+
+    <script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
     <script src="{% static 'app.js' %}"></script>
   </body>
@@ -152,6 +204,8 @@
   <script type='text/javascript'>
     $(document).on('submit', '#signup-form', function(e){
       e.preventDefault();
+      document.getElementById('signup_btn').disabled = true;
+      document.getElementById("signup_btn").value = "Please wait...";
 
       $.ajax({
         type:'POST',
@@ -169,6 +223,8 @@
         },
         success:function(res){
           var temp = res['result']
+          document.getElementById("signup_btn").disabled = false;
+          document.getElementById("signup_btn").value = "Sign Up";
           if (temp == 1){
             alert("Username is already taken, Try another username!")
           }
@@ -178,9 +234,68 @@
           else if(temp==4){
             alert("Password and confirm password are not matching!")
           }
-          else{
+          else if(temp==3){
+            //location.reload()
+            document.getElementById('id01').style.display='block'
+            //alert("Your account is created, Sign In to your account!")
+          }
+          else if(temp==6){
+            alert("Please select your gender!")
+          }
+          else {
+            alert("There is an error! Please Try Again")
+          }
+        }
+      })
+
+    })
+</script>
+<script type='text/javascript'>
+    $(document).on('submit', '#otp-form', function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type:'POST',
+        url : "{% url 'register2'%}",
+        data: {
+          username:$('#username').val(),
+          fullname:$('#fullname').val(),
+          email:$('#email').val(),
+          phone_no:$('#phone_no').val(),
+          date_of_birth:$('#date_of_birth').val(),
+          gender:$('#gender').val(),
+          password1:$('#password1').val(),
+          password2:$('#password2').val(),
+          otp_1:$("#otp_1").val(),
+          otp_2:$("#otp_2").val(),
+          otp_3:$("#otp_3").val(),
+          otp_4:$("#otp_4").val(),
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success:function(res){
+          var temp = res['result']
+          if (temp == 1){
+            alert("Username is already taken, Try another username!")
+          }
+          else if (temp == 2){
+            alert("Your email id is already registered")
+          }
+          else if(temp==4){
+            alert("Password and confirm password are not matching!")
+          }
+          else if(temp==5){
+            alert("OTP is wrong! Try Again.")
+          }
+          else if(temp==6){
+            alert("Please select your gender!")
+          }
+          else if(temp==3){
             location.reload()
+            //document.getElementById('id01').style.display='block'
             alert("Your account is created, Sign In to your account!")
+          }
+          else {
+            alert("There is an error! Please Try Again")
           }
         }
       })
