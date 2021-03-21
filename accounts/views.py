@@ -118,24 +118,84 @@ def register(request):
                 otp_text = generate_otp_text()
                 html_body = """<html lang="en">
 
-<body style="text-align: center;">
-    <h1>Your Hemllo Chatting App OTP </h1>
-    <p>Please enter the below 4 digit OTP code to complete the verification process.</p>
-    <h2 style="color: red;">{}</h2>
-    <p>This code is valid for the next 30 minutes.
-        Please do not share OTP with anyone. <br><br><br>
-        <br>
-        
-        
-        Thank You,<br>
-        Team Hemllo Chatting App<br>
-        
-        If you didn't raise this request, you can ignore it or you can write to hemlo.chatting.app@gmail.com</p>
+<body>
+    <tr>
+      <td align="center" bgcolor="#e9ecef">
+       
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;padding: 36px 13px 0px;">
+          <tr>
+            <td align="left" bgcolor="#ffffff">
+              <h1 style="background-color:#e9ecef; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hemllo Chatting App OTP</h1>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>  
+      <td align="center" bgcolor="#e9ecef">
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+
+          <!-- start copy -->
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+              <p style="margin: 0;">Please enter the below 4 digit OTP code to complete the verification process.</p>
+            </td>
+          </tr>
+   
+          <tr>
+            <td align="left" bgcolor="#ffffff">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="center" bgcolor="#ffffff" style="padding: 10px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center" bgcolor="#1a82e2" style="border-radius: 2px;">
+                          <a href=" " target="_blank" style="display: inline-block; padding: 10px 30px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 25px; color: #ffffff; text-decoration: none; border-radius: 6px;">{}</a>
+
+                        </td>
+                      </tr>
+                      
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 15px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+              <p style="margin: 0;">This code is valid for the next 30 minutes.Please do not share OTP with anyone.</p>
+              <p style="margin: 0;">
+              </p><br>
+
+              <p style="margin: 0; padding-top: 20px; font-size:14px;">If you didn't raise this request, you can ignore it or you can write to <a href="mailto:hemlo.chatting.app@gmail.com" target="_blank">hemlo.chatting.app@gmail.com</a></p>
+            </td>
+          </tr>
+
+         <tr>
+
+
+            <td align="left" bgcolor="#ffffff" style="padding:36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
+              <p style="margin: 0;">Thank You,<br>Team Hemllo Chatting App</p>
+                          
+            </td>
+          </tr>
+
+          <tr>
+            <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+              <p style="margin: 0; font-size: 12px;">Hemllo Chatting App</p>
+              <p style="margin: 0; font-size: 12px;">Chandigarh University, Mohali, Punjab</p>
+            </td>
+          </tr>
 
 </body>
 </html>""".format(otp_text)
-
-                mail.send_email(email, html_body)
+                try:
+                    mail.send_email(email, html_body)
+                except:
+                    pass
                 if OTP.objects.filter(username=username).exists():
                     otp_instance = OTP.objects.get(username=username)
                     otp_instance.otp_code = otp_text

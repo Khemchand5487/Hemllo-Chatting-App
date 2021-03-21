@@ -219,7 +219,7 @@ window.onclick = function(event) {
           gender:$('#gender').val(),
           password1:$('#password1').val(),
           password2:$('#password2').val(),
-          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
         },
         success:function(res){
           var temp = res['result']
@@ -270,7 +270,7 @@ window.onclick = function(event) {
           otp_2:$("#otp_2").val(),
           otp_3:$("#otp_3").val(),
           otp_4:$("#otp_4").val(),
-          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
         },
         success:function(res){
           var temp = res['result']
