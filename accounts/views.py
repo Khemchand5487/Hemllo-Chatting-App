@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import auth
 from django.contrib import messages
 from .models import OTP
@@ -10,12 +10,12 @@ import random
 from . import mail
 
 
-@csrf_protect
+@csrf_exempt
 def index(request):
     return render(request, 'index.html')
 
 
-@csrf_protect
+@csrf_exempt
 def otp_verification(request):
     if request.method == "POST" and request.is_ajax():
 
@@ -78,7 +78,7 @@ def otp_verification(request):
         return redirect('/')
 
 
-@csrf_protect
+@csrf_exempt
 def register(request):
     # getting post requests
     if request.method == "POST" and request.is_ajax():
@@ -213,7 +213,7 @@ def register(request):
     return redirect('/')
 
 
-@csrf_protect
+@csrf_exempt
 def login(request):
     if request.method == "POST":
         username = request.POST['username_in']
