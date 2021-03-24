@@ -1,0 +1,185 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{% static 'reset.css' %}" />
+        <link rel="stylesheet" href="{% static 'otp.css' %}">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <title>forget password</title>
+    </head>
+    <body style="background-color: #f2f2f2">
+        <div class="container">
+            <div id="send-otp" class="generate">
+                <h1>Trouble Logging In?</h1>
+
+                <p>
+                    Enter your email and we'll send you an OTP to get back into
+                    your account.
+                </p>
+
+                <div class="put-put">
+                    <form id="reset-form" method="POST" action="forgot_password/send_otp_mail">
+                    {% csrf_token %}
+                        <input id="otp_email" name="otp_email" type="email" placeholder="Email" required/>
+                        <input class="btn" id="reset_btn" name="reset_btn" type="submit" value="SEND OTP">
+                    </form>
+                </div>
+
+                <h5>Press the button to generate OTP.</h5>
+                <hr />
+                <a href="/"><h6>Create New Account</h6></a>
+            </div>
+            <div id="new-pwd" class="generate">
+
+              <h1 style="padding-bottom: 18px;">Reset password.</h1>
+              <p>
+                Please enter your new password
+            </p>
+                <div class="put-put">
+                  <form id="chng_pwd-form" method="POST" action="forgot_password/reset">
+                    <input class="input-pwd" name="password" id="password" type="password" placeholder="New password" />
+                    <input class="input-pwd" name="conf_password" id="conf_password" type="password" placeholder="Confirm password" />
+                    <input class="btn" id="new_pwd_btn" name="new_pwd_btn" type="submit" value="SUBMIT">
+                  </form>
+                </div>
+                  <hr style="margin-top: 12px;">
+                  <a href="/"><h6>Back to Sign In</h6></a>
+            </div>
+
+            <div style="z-index:100" id="id01" class="modal">
+    
+      <form id="otp-form" class="modal-content animate" action="forgot_password/verify_reset_otp" method="POST">
+        {% csrf_token %}
+        <p style="padding: 10px; text-align: center;">
+            An OTP has been send to your entered Email address, kindly verify your account.
+        </p>
+        
+        <div class="container-otp">
+          <label for="OTP"><b>OTP</b></label>
+          
+            <input id="otp_1" name="otp_1" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+            <input id="otp_2" name="otp_2" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+            <input id="otp_3" name="otp_3" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+            <input id="otp_4" name="otp_4" style="width: 8%; padding: 8px 11px; margin: 8px 20px; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; text-align: center; font-size:20px;" type="text" maxlength="1" required>
+
+          <br>
+          <h6><a href="#" onclick="document.getElementById('id01').style.display='none';">Re-send OTP</a></h6>
+          <button id="otp-button" type="submit">Submit</button>
+          <label>
+        </div>
+      </form>
+  </div>
+        </div>
+
+
+        <script>
+            // Get the modal
+            var modal = document.getElementById("id01");
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    
+                }
+            };
+        </script>
+    </body>
+     <script type='text/javascript'>
+    $(document).on('submit', '#reset-form', function(e){
+      e.preventDefault();
+      document.getElementById('reset_btn').disabled = true;
+      document.getElementById("reset_btn").value = "Please wait...";
+
+      $.ajax({
+        type:'POST',
+        url : "{% url 'forgot_password/send_otp_mail'%}",
+        data: {
+          otp_email:$('#otp_email').val(),
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        success:function(res){
+          var temp = res['result']
+          document.getElementById("reset_btn").disabled = false;
+          document.getElementById("reset_btn").value = "SEND OTP";
+          if (temp == 1){
+            document.getElementById('id01').style.display='block'
+          }
+          else if (temp == 2){
+            alert("No data found for the given email.\nKindly create a new account.")
+          }
+          else {
+            alert("There is an error! Please Try Again")
+          }
+        }
+      })
+
+    })
+    $(document).on('submit', '#otp-form', function(e){
+      e.preventDefault();
+      document.getElementById('otp-button').disabled = true;
+
+      $.ajax({
+        type:'POST',
+        url : "{% url 'forgot_password/verify_reset_otp'%}",
+        data: {
+          otp_1:$("#otp_1").val(),
+          otp_2:$("#otp_2").val(),
+          otp_3:$("#otp_3").val(),
+          otp_4:$("#otp_4").val(),
+          otp_email:$('#otp_email').val(),
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success:function(res){
+          var temp = res['result']
+          document.getElementById('otp-button').disabled = false;
+          if (temp == 1){
+            // alert("OTP Verified!")
+            document.getElementById('new-pwd').style.display='block'
+            document.getElementById('send-otp').style.display='none'
+            document.getElementById('id01').style.display='none'
+          }
+          else if (temp == 2){
+            alert("OTP you have entered is not correct!\nPlease Try again.")
+            
+          }
+          else {
+            alert("There is an error! Please Try Again")
+          }
+        }
+      })
+
+    })
+    $(document).on('submit', '#chng_pwd-form', function(e){
+      e.preventDefault();
+      document.getElementById('new_pwd_btn').disabled = true;
+
+      $.ajax({
+        type:'POST',
+        url : "{% url 'forgot_password/reset'%}",
+        data: {
+          password:$('#password').val(),
+          conf_password:$('#conf_password').val(),
+          otp_email:$('#otp_email').val(),
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        success:function(res){
+          var temp = res['result']
+          document.getElementById("new_pwd_btn").disabled = false;
+          if (temp == 1){
+            window.location = "/";
+          }
+          else if (temp == 2){
+            alert("password and confirm password is not matching!")
+          }
+          else {
+            alert("There is an error! Please Try Again")
+          }
+        }
+      })
+
+    })
+</script>
+</html>

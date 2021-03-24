@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import auth
 from django.contrib import messages
 from .models import OTP
@@ -10,12 +10,11 @@ import random
 from . import mail
 
 
-@csrf_protect
 def index(request):
     return render(request, 'index.html')
 
 
-@csrf_protect
+@csrf_exempt
 def otp_verification(request):
     if request.method == "POST" and request.is_ajax():
 
@@ -78,17 +77,17 @@ def otp_verification(request):
         return redirect('/')
 
 
-@csrf_protect
+@csrf_exempt
 def register(request):
     # getting post requests
     if request.method == "POST" and request.is_ajax():
 
         # fetching data from input form
         username = request.POST['username']
-        fullname = request.POST['fullname']
+        # fullname = request.POST['fullname']
         email = request.POST['email']
-        date_of_birth = request.POST['date_of_birth']
-        phone_no = request.POST['phone_no']
+        # date_of_birth = request.POST['date_of_birth']
+        # phone_no = request.POST['phone_no']
         gender = request.POST['gender']
         password = request.POST['password1']
         confirm_password = request.POST['password2']
@@ -118,80 +117,80 @@ def register(request):
                 otp_text = generate_otp_text()
                 html_body = """<html lang="en">
 
-<body>
-    <tr>
-      <td align="center" bgcolor="#e9ecef">
-       
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;padding: 36px 13px 0px;">
-          <tr>
-            <td align="left" bgcolor="#ffffff">
-              <h1 style="background-color:#e9ecef; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hemllo Chatting App OTP</h1>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
+					<body>
+						<tr>
+						<td align="center" bgcolor="#e9ecef">
 
-    <tr>  
-      <td align="center" bgcolor="#e9ecef">
+							<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;padding: 36px 13px 0px;">
+							<tr>
+								<td align="left" bgcolor="#ffffff">
+								<h1 style="background-color:#e9ecef; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hemllo Chatting App OTP</h1>
+								</td>
+							</tr>
+							</table>
+						</td>
+						</tr>
 
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+						<tr>
+						<td align="center" bgcolor="#e9ecef">
 
-          <!-- start copy -->
-          <tr>
-            <td align="left" bgcolor="#ffffff" style="padding: 36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Please enter the below 4 digit OTP code to complete the verification process.</p>
-            </td>
-          </tr>
-   
-          <tr>
-            <td align="left" bgcolor="#ffffff">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                  <td align="center" bgcolor="#ffffff" style="padding: 10px;">
-                    <table border="0" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td align="center" bgcolor="#1a82e2" style="border-radius: 2px;">
-                          <a href=" " target="_blank" style="display: inline-block; padding: 10px 30px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 25px; color: #ffffff; text-decoration: none; border-radius: 6px;">{}</a>
+							<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
 
-                        </td>
-                      </tr>
-                      
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+							<!-- start copy -->
+							<tr>
+								<td align="left" bgcolor="#ffffff" style="padding: 36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+								<p style="margin: 0;">Please enter the below 4 digit OTP code to complete the verification process.</p>
+								</td>
+							</tr>
 
-          <tr>
-            <td align="left" bgcolor="#ffffff" style="padding: 15px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">This code is valid for the next 30 minutes.Please do not share OTP with anyone.</p>
-              <p style="margin: 0;">
-              </p><br>
+							<tr>
+								<td align="left" bgcolor="#ffffff">
+								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+									<tr>
+									<td align="center" bgcolor="#ffffff" style="padding: 10px;">
+										<table border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td align="center" bgcolor="#1a82e2" style="border-radius: 2px;">
+											<a href=" " target="_blank" style="display: inline-block; padding: 10px 30px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 25px; color: #ffffff; text-decoration: none; border-radius: 6px;">{}</a>
 
-              <p style="margin: 0; padding-top: 20px; font-size:14px;">If you didn't raise this request, you can ignore it or you can write to <a href="mailto:hemlo.chatting.app@gmail.com" target="_blank">hemlo.chatting.app@gmail.com</a></p>
-            </td>
-          </tr>
+											</td>
+										</tr>
 
-         <tr>
+										</table>
+									</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+
+							<tr>
+								<td align="left" bgcolor="#ffffff" style="padding: 15px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+								<p style="margin: 0;">This code is valid for the next 30 minutes.Please do not share OTP with anyone.</p>
+								<p style="margin: 0;">
+								</p><br>
+
+								<p style="margin: 0; padding-top: 20px; font-size:14px;">If you didn't raise this request, you can ignore it or you can write to <a href="mailto:hemlo.chatting.app@gmail.com" target="_blank">hemlo.chatting.app@gmail.com</a></p>
+								</td>
+							</tr>
+
+							<tr>
 
 
-            <td align="left" bgcolor="#ffffff" style="padding:36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-              <p style="margin: 0;">Thank You,<br>Team Hemllo Chatting App</p>
-                          
-            </td>
-          </tr>
+								<td align="left" bgcolor="#ffffff" style="padding:36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
+								<p style="margin: 0;">Thank You,<br>Team Hemllo Chatting App</p>
 
-          <tr>
-            <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-              <p style="margin: 0; font-size: 12px;">Hemllo Chatting App</p>
-              <p style="margin: 0; font-size: 12px;">Chandigarh University, Mohali, Punjab</p>
-            </td>
-          </tr>
+								</td>
+							</tr>
 
-</body>
-</html>""".format(otp_text)
+							<tr>
+								<td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+								<p style="margin: 0; font-size: 12px;">Hemllo Chatting App</p>
+								<p style="margin: 0; font-size: 12px;">Chandigarh University, Mohali, Punjab</p>
+								</td>
+							</tr>
+
+					</body>
+					</html>""".format(otp_text)
                 try:
                     mail.send_email(email, html_body)
                 except:
@@ -213,7 +212,7 @@ def register(request):
     return redirect('/')
 
 
-@csrf_protect
+@csrf_exempt
 def login(request):
     if request.method == "POST":
         username = request.POST['username_in']
@@ -237,3 +236,161 @@ def generate_otp_text():
     print("Random OTP is : " + res)
 
     return res
+
+# load template
+
+
+def forgot_password(request):
+	return render(request, 'reset.html')
+
+# send verification mail
+
+@csrf_exempt
+def send_reset_mail(request):
+	if request.method == "POST" and request.is_ajax():
+		otp_email = request.POST["otp_email"]
+
+		User = get_user_model()
+
+		if User.objects.filter(email=otp_email):
+			otp_text = generate_otp_text()
+			html_body = """<html lang="en">
+			<body>
+				<tr>
+				<td align="center" bgcolor="#e9ecef">
+				
+					<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;padding: 36px 13px 0px;">
+					<tr>
+						<td align="left" bgcolor="#ffffff">
+						<h1 style="background-color:#e9ecef; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hemllo Chatting App OTP</h1>
+						</td>
+					</tr>
+					</table>
+				</td>
+				</tr>
+
+				<tr>  
+				<td align="center" bgcolor="#e9ecef">
+
+					<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+
+					<!-- start copy -->
+					<tr>
+						<td align="left" bgcolor="#ffffff" style="padding: 36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+						<p style="margin: 0;">Please enter the below 4 digit OTP code to complete the verification process.</p>
+						</td>
+					</tr>
+			
+					<tr>
+						<td align="left" bgcolor="#ffffff">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+							<td align="center" bgcolor="#ffffff" style="padding: 10px;">
+								<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td align="center" bgcolor="#1a82e2" style="border-radius: 2px;">
+									<a href=" " target="_blank" style="display: inline-block; padding: 10px 30px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 25px; color: #ffffff; text-decoration: none; border-radius: 6px;">{}</a>
+
+									</td>
+								</tr>
+								
+								</table>
+							</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+
+					<tr>
+						<td align="left" bgcolor="#ffffff" style="padding: 15px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+						<p style="margin: 0;">This code is valid for the next 30 minutes.Please do not share OTP with anyone.</p>
+						<p style="margin: 0;">
+						</p><br>
+
+						<p style="margin: 0; padding-top: 20px; font-size:14px;">If you didn't raise this request, you can ignore it or you can write to <a href="mailto:hemlo.chatting.app@gmail.com" target="_blank">hemlo.chatting.app@gmail.com</a></p>
+						</td>
+					</tr>
+
+					<tr>
+
+
+						<td align="left" bgcolor="#ffffff" style="padding:36px 13px 15px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
+						<p style="margin: 0;">Thank You,<br>Team Hemllo Chatting App</p>
+									
+						</td>
+					</tr>
+
+					<tr>
+						<td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+						<p style="margin: 0; font-size: 12px;">Hemllo Chatting App</p>
+						<p style="margin: 0; font-size: 12px;">Chandigarh University, Mohali, Punjab</p>
+						</td>
+					</tr>
+
+			</body>
+			</html>""".format(otp_text)
+			try:
+				mail.send_email(otp_email, html_body, subject="Reset Password OTP")
+			except:
+				pass
+			username = User.objects.get(email=otp_email).username
+			# print(type(username))
+			if OTP.objects.filter(username=username).exists():
+				otp_instance = OTP.objects.get(username=username)
+				otp_instance.otp_code = otp_text
+				otp_instance.save()
+			else:
+				otp_instance = OTP.objects.create(
+					username=username, otp_code=otp_text)
+				otp_instance.save()
+			
+			return HttpResponse(json.dumps({'result': 1}), content_type='application/json')
+		
+		else:
+			print("No data found for the given email. Kindly create a new account.")
+			return HttpResponse(json.dumps({'result': 2}), content_type='application/json')
+
+	else:
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+
+
+@csrf_exempt
+def verify_reset_otp(request):
+	if request.method=="POST" and request.is_ajax():
+		otp_1 = request.POST['otp_1']
+		otp_2 = request.POST['otp_2']
+		otp_3 = request.POST['otp_3']
+		otp_4 = request.POST['otp_4']
+
+		otp_entered = "".join([otp_1, otp_2, otp_3, otp_4])
+		email = request.POST['otp_email']
+		User = get_user_model()
+		username = User.objects.get(email=email).username
+		if OTP.objects.filter(username=username, otp_code=otp_entered).exists():
+			OTP.objects.get(username=username, otp_code=otp_entered).delete()
+			
+			return HttpResponse(json.dumps({'result': 1}), content_type='application/json')
+		
+		else:
+			print("OTP you have entered is not correct!\nPlease Try again.")
+			return HttpResponse(json.dumps({'result': 2}), content_type='application/json')
+	else:
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+
+@csrf_exempt
+def change_pwd(request):
+	if request.method == "POST" and request.is_ajax():
+		password = request.POST['password']
+		conf_password = request.POST['conf_password']
+		email = request.POST['otp_email']
+
+		User = get_user_model()
+		if password == conf_password:
+			user_inst = User.objects.get(email=email)
+			user_inst.set_password(password)
+			user_inst.save()
+			return HttpResponse(json.dumps({'result': 1}), content_type='application/json')
+		else:
+			return HttpResponse(json.dumps({'result': 2}), content_type='application/json')
+	else:
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
