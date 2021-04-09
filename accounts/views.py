@@ -222,7 +222,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             print("you are logged in!")
-            return HttpResponse("Logged IN")
+            return render(request, 'main_chat.html')
         else:
             print("Invalid credentials!")
             messages.error(request, "Username and Password in not correct!")
