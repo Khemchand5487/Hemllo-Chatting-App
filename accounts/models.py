@@ -30,7 +30,8 @@ class MyAccountsManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
-        return user
+        return user   
+    
 
     def create_superuser(self, username, fullname, email, phone_no, date_of_birth, gender, password):
         user = self.create_user(
@@ -67,6 +68,7 @@ class Accounts(AbstractBaseUser):
     phone_no = models.CharField(max_length=15)
     date_of_birth = models.CharField(max_length=15)
     gender = models.CharField(max_length=15)
+    friends = models.ManyToManyField("Accounts", blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'fullname',
@@ -76,6 +78,7 @@ class Accounts(AbstractBaseUser):
 
     def __str__(self):
         return self.username
+    
 
     def has_perm(self, perm, obj=None):
         return self.is_admin

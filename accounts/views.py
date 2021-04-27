@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth
 from django.contrib import messages
 from .models import OTP
@@ -222,29 +223,30 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             print("you are logged in!")
-            return render(request, 'main_chat.html')
+            return redirect("main")
         else:
             print("Invalid credentials!")
             messages.error(request, "Username and Password in not correct!")
 
     return redirect('/')
 
+@login_required
+def main_app(request):
+	current_user = request.user
+	return render(request, "main_chat.html", context={'current_user': current_user, 'friends':current_user.friends.all()})
 
 def generate_otp_text():
 
     res = "".join(map(str, (random.randrange(0, 9, 1) for i in range(4))))
     print("Random OTP is : " + res)
 
-    return res
+    return res 
 
-# load template
-
-
+# load reset template
 def forgot_password(request):
 	return render(request, 'reset.html')
 
 # send verification mail
-
 @csrf_exempt
 def send_reset_mail(request):
 	if request.method == "POST" and request.is_ajax():
