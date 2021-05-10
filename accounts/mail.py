@@ -11,7 +11,7 @@ from email import encoders
 email_user = 'hemllo.chatting.app@gmail.com'
 
 # sender email passowrd for login purposes
-email_password = 'Hemllo2021@#$'
+email_password = 'Hemllo@2021'
 
 
 def send_email(email_send="Error", body="Error", subject="OTP for Registrations on Hemllo Chatting App"):
