@@ -8,10 +8,10 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 # sender email address
-email_user = 'hemllo.chatting.app@gmail.com'
+email_user = 'youremailaddress'
 
 # sender email passowrd for login purposes
-email_password = 'Hemllo@2021'
+email_password = 'yourpassword'
 
 
 def send_email(email_send="Error", body="Error", subject="OTP for Registrations on Hemllo Chatting App"):
